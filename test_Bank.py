@@ -35,6 +35,8 @@ def test_withdraw_insufficient_raises_and_keeps_balance():
 
 
 
+
+
 @pytest.fixture
 def bank():
     return Bank()
@@ -67,33 +69,34 @@ def test_transfer_success_updates_both_balances(bank):
     assert bank.account["Bob"] == 500
 
 
-def test_transfer_sender_missing_prints_and_no_change(bank, capsys):
+def test_transfer_sender_missing_raises_and_no_change(bank):
     bank.new_score("Bob", 200)
 
-    bank.transfer_money("Ghost", "Bob", 100)
-    out = capsys.readouterr().out
+    with pytest.raises(ValueError) as exc:
+        bank.transfer_money("Ghost", "Bob", 100)
 
-    assert "Счет отправителя не существует" in out
+    # сообщение может отличаться по "е/ё", проверяем по ключевому слову
+    assert "отправителя" in str(exc.value)
     assert bank.account["Bob"] == 200  # баланс не изменился
 
 
-def test_transfer_receiver_missing_prints_and_no_change(bank, capsys):
+def test_transfer_receiver_missing_raises_and_no_change(bank):
     bank.new_score("Alice", 500)
 
-    bank.transfer_money("Alice", "Ghost", 100)
-    out = capsys.readouterr().out
+    with pytest.raises(ValueError) as exc:
+        bank.transfer_money("Alice", "Ghost", 100)
 
-    assert "Счёт получателя не найден" in out
+    assert "получателя" in str(exc.value)
     assert bank.account["Alice"] == 500  # баланс не изменился
 
 
-def test_transfer_insufficient_funds_prints_and_no_change(bank, capsys):
+def test_transfer_insufficient_funds_raises_and_no_change(bank):
     bank.new_score("Alice", 100)
     bank.new_score("Bob", 200)
 
-    bank.transfer_money("Alice", "Bob", 150)
-    out = capsys.readouterr().out
+    with pytest.raises(ValueError) as exc:
+        bank.transfer_money("Alice", "Bob", 150)
 
-    assert "не достаточно" in out  # часть сообщения
+    assert "не достаточно" in str(exc.value) or "недостаточно" in str(exc.value).lower()
     assert bank.account["Alice"] == 100
     assert bank.account["Bob"] == 200

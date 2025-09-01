@@ -16,18 +16,14 @@ class Bank:
         to_score = self.find_score(to_client)
 
         if from_score is None:
-            print('Счет отправителя не существует')
-            return
+            raise ValueError('Счет отправителя не существует')
         if to_score is None:
-            print("Счёт получателя не найден")
-            return
+            raise ValueError("Счёт получателя не найден")
         if from_score[1] >= value:
             self.account[from_client] -= value
             self.account[to_client] += value
-        #if from_score[1] < value:
         else:
-            print('На вашем счету не достаточно ДЕНЕХ')
-
+            raise ValueError('На вашем счету не достаточно ДЕНЕХ')
 
 #Тесты прописаны, тесты прошел. Вроде все норм
 class BankAccount:
