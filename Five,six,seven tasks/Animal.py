@@ -59,3 +59,4 @@ vet.treat_animal(dog)
 vet.treat_animal(dog)
 vet.treat_animal(cat)
 vet.treat_animal(bear)
+
