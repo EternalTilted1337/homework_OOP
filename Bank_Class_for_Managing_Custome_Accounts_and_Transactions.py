@@ -31,7 +31,6 @@ class BankAccount:
         self.account_id = account_id
         self.owner = owner
         self.balance = balance
-
     def deposit(self,amount):
         if amount <=0:
             raise ValueError('Пополнение должны быть больше 0')
@@ -49,4 +48,6 @@ class BankAccount:
 
     def get_balance(self):
         return self.balance
+
+
 

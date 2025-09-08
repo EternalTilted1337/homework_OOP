@@ -24,3 +24,4 @@ test4 = calc(400,200,'/')
 lst = [test1,test2,test3,test4]
 for i in lst:
     print(i.summ(),i.subscration(),i.multiplication(),i.division())
+

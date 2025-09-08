@@ -27,3 +27,5 @@ print(buy.total())#покупка все гуд
 
 buy.remove('banana')
 print(buy.total())#remove все гуд
+
+

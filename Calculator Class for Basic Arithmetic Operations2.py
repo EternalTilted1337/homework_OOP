@@ -27,3 +27,4 @@ print(f'666 - 333 = {test2}')
 print(f'10 * 10 = {test3}')
 print(f'666 : 2 = {test4}')
 print(f'5 ** 5 = {test5}')
+

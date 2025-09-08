@@ -20,3 +20,4 @@ third = person('Bob','Germany',date(1999,5,17))
 people = [first, second, third]
 for person in people:
     print(person.name, person.country, person.age())
+
